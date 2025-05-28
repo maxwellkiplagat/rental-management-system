@@ -1,3 +1,4 @@
+import sys
 from db import session
 from models import Tenant, Property, Lease
 
@@ -62,7 +63,8 @@ def menu():
         create_lease()
     elif choice == '4':
         view_data()
-    elif choice == '5':
-        print("EXITED.")       
+    elif choice == '5':      
+        print("EXITED.") 
+        sys.exit()    
     else:
         print("Invalid choice.")
