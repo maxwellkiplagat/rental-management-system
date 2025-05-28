@@ -63,7 +63,6 @@ def menu():
     elif choice == '4':
         view_data()
     elif choice == '5':
-        print("EXITED.")
-        
+        print("EXITED.")       
     else:
         print("Invalid choice.")
