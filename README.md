@@ -26,6 +26,7 @@ This is a  simple command-line based rental property management system built wit
 - to run the program ensure you are in the parent directory to this do this in your terminal to change the directory :-
   
    - ```cd rental-manager-sys ```
+     
 -in that directory you can now run the program by prompting this in the terminal :-
 
   -  ``` python main.py```
