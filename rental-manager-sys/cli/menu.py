@@ -38,7 +38,7 @@ def create_room():
         return
 
     number = input("Enter room number (e.g., 101): ")
-    room = Room(number=number, property_id=property_id)
+    room = Room(room_number=number, property_id=property_id)
     session.add(room)
     session.commit()
     print(f"Room {number} added to property {prop.address}.")
@@ -112,7 +112,7 @@ def view_data():
     else:
         print("No vacant rooms available.")
 
-    def delete_tenant():
+def delete_tenant():
         try:
             tenant_id = int(input("Enter Tenant ID to delete: "))
             tenant = session.query(Tenant).get(tenant_id)
@@ -131,8 +131,7 @@ def view_data():
                 print("Tenant not found.")
         except Exception as e:
             print(f"Error: {e}")
-
-    def record_payment():
+def record_payment():
         leases = session.query(Lease).all()
         if not leases:
             print("No leases found. Create a lease first.")
@@ -152,7 +151,7 @@ def view_data():
         session.add(payment)
         session.commit()
         print(f"Payment of {amount} recorded for lease ID {lease_id}.")
-    def view_payments():
+def view_payments():
         payments = session.query(Payment).all()
         print("\n--- Payments ---")
         if not payments:
