@@ -46,7 +46,7 @@ def create_room():
 
 def create_lease():
     tenants = session.query(Tenant).all()
-    rooms = session.query(Room).filter(Room.is_vacant == True).all()
+    rooms = session.query(Room).filter(Room.is_occupied == False).all()
     if not tenants:
         print("No tenants found. Create a tenant first.")
         return
