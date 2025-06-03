@@ -9,6 +9,7 @@ class Property(Base):
     rent = Column(Float, nullable=False)
 
     leases = relationship("Lease", back_populates="property")
+    rooms = relationship("Room", back_populates="property") 
 
     def __repr__(self):
         return f"Property(id={self.id}, address={self.address})"
