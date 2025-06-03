@@ -77,7 +77,8 @@ def create_lease():
     lease = Lease(tenant_id=tenant_id, room_id=room_id, duration_months=duration)
     session.add(lease)
     
-    room.is_occupied = False
+    room.is_occupied = True
+    session.add(lease)
     session.commit()
     print(f"Lease created for tenant {tenant.name} in room {room.number}.")
 
