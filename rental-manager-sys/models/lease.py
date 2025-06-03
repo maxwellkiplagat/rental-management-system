@@ -13,6 +13,8 @@ class Lease(Base):
 
     tenant = relationship("Tenant", back_populates="leases")
     property = relationship("Property", back_populates="leases")
+    payments = relationship("Payment", back_populates="lease")
+
 
     def __repr__(self):
         return f"Lease(id={self.id}, tenant={self.tenant.name}, property={self.property.address},start_date={self.start_date}, duration_months={self.duration_months})"
