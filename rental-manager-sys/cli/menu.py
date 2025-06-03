@@ -65,7 +65,7 @@ def create_lease():
 
     print("Select vacant room:")
     for r in rooms:
-        print(f"{r.id}: Room {r.number} at Property {r.property.address}")
+        print(f"{r.id}: Room {r.room_number} at Property {r.property.address}")
     room_id = int(input("Enter room ID: "))
     room = session.query(Room).get(room_id)
     if not room or not room.is_vacant:
