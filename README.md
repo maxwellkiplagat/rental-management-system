@@ -22,6 +22,8 @@ This is a  simple command-line based rental property management system built wit
   
   ```pipenv shell```
 
+  ```pip install tabulate```
+
 ##  Running the program 
 - to run the program ensure you are in the parent directory to this do this in your terminal to change the directory :-
   
