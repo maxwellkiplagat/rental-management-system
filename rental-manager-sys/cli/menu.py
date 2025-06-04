@@ -7,6 +7,7 @@ from models.lease import Lease
 from models.payment import Payment
 from tabulate import tabulate
 
+
 def create_tenant():
     name = input("Enter tenant name: ")
     email = input("Enter tenant email: ")
@@ -166,20 +167,15 @@ def record_payment():
         session.add(payment)
         session.commit()
         print(f"Payment of {amount} recorded for lease ID {lease_id}.")
-def view_payments(session):
+def view_payments():
     payments = session.query(Payment).all()
-        
+    print("\n--- Payments ---")
     if payments:
-        data = []
-        for p in payments:
-            tenant_name = getattr(getattr(p.lease, 'tenant', None), 'name', 'Unknown')
-            data.append([p.id, p.lease_id, tenant_name, p.amount, p.payment_date.strftime('%Y-%m-%d')])
-        table = tabulate(data, headers=["Payment ID", "Lease ID", "Tenant", "Amount", "Date"], tablefmt="fancy_grid")
-        return table        
+        data = [[p.id, p.lease_id, p.lease.tenant.name, p.amount, p.payment_date.strftime('%Y-%m-%d')] for p in payments]
+        print(tabulate(data, headers=["Payment ID", "Lease ID", "Tenant", "Amount", "Date"], tablefmt="fancy_grid"))
     else:
-        return "No payments recorded."
-print("\n--- Payments ---")
-print(view_payments(session))
+        print("No payments recorded.")
+
 
 
 def menu():
