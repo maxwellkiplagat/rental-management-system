@@ -140,7 +140,7 @@ def record_payment():
 
         print("Select lease to record payment:")
         for lease in leases:
-            print(f"{lease.id}: Tenant {lease.tenant.name}, Room {lease.room.number}, Property {lease.property.address}")
+            print(f"{lease.id}: Tenant {lease.tenant.name}, Room {lease.room.room_number}, Property {lease.property.address}")
         lease_id = int(input("Enter lease ID: "))
         lease = session.query(Lease).get(lease_id)
         if not lease:
