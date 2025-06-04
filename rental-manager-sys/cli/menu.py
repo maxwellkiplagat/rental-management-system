@@ -102,8 +102,8 @@ def view_data():
         print(l)
     print("\n--- Rooms ---")
     for r in rooms:
-        status = "Vacant" if r.is_vacant else "Occupied"
-        print(f"Room(id={r.id}, number={r.number}, property={r.property.address}, status={status})")
+        status = "Vacant" if not r.is_occupied else "Occupied"
+        print(f"Room(id={r.id}, number={r.room_number}, property={r.property.address}, status={status})")
 
     vacant_rooms = session.query(Room).filter(Room.is_vacant == True).all()
     print("\n--- Vacant Rooms ---")
