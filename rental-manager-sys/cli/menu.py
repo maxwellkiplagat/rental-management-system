@@ -68,7 +68,7 @@ def create_lease():
         print(f"{r.id}: Room {r.room_number} at Property {r.property.address}")
     room_id = int(input("Enter room ID: "))
     room = session.query(Room).get(room_id)
-    if not room or not room.is_occupied:
+    if not room or  room.is_occupied:
         print("Invalid or occupied room ID.")
         return
 
@@ -80,7 +80,7 @@ def create_lease():
     room.is_occupied = True
     session.add(lease)
     session.commit()
-    print(f"Lease created for tenant {tenant.name} in room {room.number}.")
+    print(f"Lease created for tenant {tenant.name} in room {room.room_number}.")
 
     
 
