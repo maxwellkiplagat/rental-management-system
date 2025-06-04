@@ -109,7 +109,7 @@ def view_data():
     print("\n--- Vacant Rooms ---")
     if vacant_rooms:
         for vr in vacant_rooms:
-            print(f"Room {vr.number} at Property {vr.property.address}")
+            print(f"Room {vr.room_number} at Property {vr.property.address}")
     else:
         print("No vacant rooms available.")
 
