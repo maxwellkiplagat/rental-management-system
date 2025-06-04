@@ -5,6 +5,7 @@ from models.property import Property
 from models.room import Room
 from models.lease import Lease
 from models.payment import Payment
+from tabulate import tabulate
 
 def create_tenant():
     name = input("Enter tenant name: ")
@@ -92,26 +93,39 @@ def view_data():
 
 
     print("\n--- Tenants ---")
-    for t in tenants:
-        print(t)
-    print("\n--- Properties ---")
-    for p in properties:
-        print(p)
-    print("\n--- Leases ---")
-    for l in leases:
-        print(l)
-    print("\n--- Rooms ---")
-    for r in rooms:
-        status = "Vacant" if not r.is_occupied else "Occupied"
-        print(f"Room(id={r.id}, number={r.room_number}, property={r.property.address}, status={status})")
+    if tenants:
+        data = [[t.id, t.name, t.email] for t in tenants]
+        print(tabulate(data, headers=["ID", "Name", "Email"], tablefmt="fancy_grid"))
+    else:
+        print("No tenants found.")
 
+    print("\n--- Properties ---")
+    if properties:
+        data = [[p.id, p.address, p.rent] for p in properties]
+        print(tabulate(data, headers=["ID", "Address", "Rent"], tablefmt="fancy_grid"))
+    else:
+        print("No properties found.")
+
+    print("\n--- Leases ---")
+    if leases:
+        data = [[l.id, l.tenant.name, l.room.room_number, l.room.property.address, l.duration_months] for l in leases]
+        print(tabulate(data, headers=["ID", "Tenant", "Room", "Property", "Duration (months)"], tablefmt="fancy_grid"))
+    else:
+        print("No leases found.")
+
+    print("\n--- Rooms ---")
+    if rooms:
+        data = [[r.id, r.room_number, r.property.address, "Occupied" if r.is_occupied else "Vacant"] for r in rooms]
+        print(tabulate(data, headers=["ID", "Room No.", "Property", "Status"], tablefmt="fancy_grid"))
+    else:
+        print("No rooms found.")
     vacant_rooms = session.query(Room).filter(Room.is_occupied == False).all()
     print("\n--- Vacant Rooms ---")
     if vacant_rooms:
-        for vr in vacant_rooms:
-            print(f"Room {vr.room_number} at Property {vr.property.address}")
+        data = [[vr.room_number, vr.property.address] for vr in vacant_rooms]
+        print(tabulate(data, headers=["Room No.", "Property"], tablefmt="fancy_grid"))
     else:
-        print("No vacant rooms available.")
+        print("No vacant rooms.")
 
 def delete_tenant():
         try:
@@ -155,11 +169,11 @@ def record_payment():
 def view_payments():
         payments = session.query(Payment).all()
         print("\n--- Payments ---")
-        if not payments:
+        if payments:
+            data = [[p.id, p.lease_id, p.lease.tenant.name, p.amount, p.payment_date.strftime('%Y-%m-%d')] for p in payments]
+            print(tabulate(data, headers=["Payment ID", "Lease ID", "Tenant", "Amount", "Date"], tablefmt="fancy_grid"))
+        else:
             print("No payments recorded.")
-        for p in payments:
-            print(f"Payment ID: {p.id}, Lease ID: {p.lease_id}, Tenant: {p.lease.tenant.name}, Amount: {p.amount}, Date: {p.payment_date}")
-
 
 def menu():
     print("""
