@@ -166,7 +166,7 @@ def record_payment():
         session.add(payment)
         session.commit()
         print(f"Payment of {amount} recorded for lease ID {lease_id}.")
-def view_payments():
+def view_payments(session):
     payments = session.query(Payment).all()
         
     if payments:
